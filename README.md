@@ -40,14 +40,6 @@ El diseño original presenta los siguientes problemas estructurales:
 * Clases forzadas a implementar comportamientos irrelevantes.
 * Alto acoplamiento entre cliente y clases concretas.
 
-### Smells identificados:
-
-* Métodos no usados.
-* Implementaciones forzadas.
-* Violaciones del principio de responsabilidad.
-* Dependencias innecesarias.
-* Creación fuera del contexto de agregación.
-
 ---
 
 ## 📌 Principios Aplicados
@@ -140,18 +132,49 @@ La aplicación de estos principios mejora la calidad estructural, pero exige may
 
 ---
 
-## 📁 Estructura del Repositorio
+## Estructura del Proyecto
 
-* `/src/creator/creator.problem.ts` → Código antes de aplicar los principios.
-* `/src/creator/creator.solution.ts` → Código después de la refactorización.
-* `/src/interface-segregation/interface-segregation.problem.ts` → Código antes de aplicar los principios.
-* `/src/interface-segregation/interface-segregation.solution.ts` → Código después de la refactorización.
-* `README.md` → Documento descriptivo del trabajo.
-
----
+```
+src/solution/
+├── interfaces/                    # Definición de contratos
+│   ├── index.ts                  # Exportaciones centralizadas
+│   └── payment.inerface.ts       # Interfaces segregadas de pago
+├── classes/                      # Implementaciones concretas
+│   ├── index.ts                  # Exportaciones centralizadas
+│   ├── payment-methods/          # Métodos de pago concretos
+│   │   ├── index.ts             # Exportaciones de métodos de pago
+│   │   ├── cash-payment.ts      # Pago en efectivo (solo Payment)
+│   │   ├── credit-card-payment.ts # Tarjeta de crédito (Payment + Refundable + Receiptable)
+│   │   └── paypal-payment.ts    # PayPal (Payment + Refundable + Receiptable)
+│   ├── order/                    # Gestión de órdenes
+│   │   └── order.class.ts       # Clase Order (Creator)
+│   └── checkout/                 # Proceso de checkout
+│       └── checkout.class.ts    # Orquestador del proceso
+```
 
 ## 🏁 Conclusión
 
 La aplicación conjunta de **Creator (GRASP)** e **ISP** demuestra cómo decisiones estructurales bien fundamentadas transforman un diseño frágil en un modelo coherente, extensible y sostenible.
 
 El objetivo no es aplicar principios por dogma, sino comprender cuándo, por qué y a qué costo hacerlo.
+
+
+## Resumen visual
+```
+- MAL                         - BIEN
+
+Checkout                       Checkout
+  └─ crea ──►  CreditCard        └─ le pide a Order ──►  Order
+  └─ crea ──►  PayPal                                      └─ crea CreditCardPayment
+  └─ crea ──►  Cash                                        └─ crea PayPalPayment
+                                                           └─ crea CashPayment
+
+                                                           ## 📊 Comparación: Antes vs Después
+
+| Aspecto | Problema | Solución |
+|---------|----------|----------|
+| **Interfaces** | Monolítica con métodos no utilizados | Segregadas por capacidad |
+| **CashPayment** | Implementa métodos vacíos | Solo implementa Payment |
+| **Creación de objetos** | Controller crea objetos sin relación | Order crea Payment (Creator) |
+| **Acoplamiento** | Alto entre componentes | Bajo, cada clase tiene su responsabilidad |
+| **Extensibilidad** | Difícil agregar nuevos métodos | Fácil, solo implementar interfaces necesarias |
