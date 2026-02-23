@@ -1,7 +1,7 @@
 interface payment {
   payment(amount: number): void;
   refund(amount: number): void;
-  digitalReceipt(amount: number): json;
+  digitalReceipt(amount: number): string;
 }
 
 class CreditCardPayment implements payment {

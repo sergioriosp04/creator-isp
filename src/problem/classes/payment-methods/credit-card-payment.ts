@@ -1,6 +1,5 @@
 import type { Payment } from '../../interfaces/payment.interface.js';
 
-// ✅ CreditCardPayment implementa todos los métodos correctamente
 export class CreditCardPayment implements Payment {
   payment(amount: number): void {
     console.log(`Payment of ${amount} made using credit card.`);

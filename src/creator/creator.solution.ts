@@ -17,10 +17,6 @@ class Carrito {
   public agregarItem(item: ItemCarrito): void {
     this.items.push(item);
   }
-  // Carrito es quien crea ItemCarrito porque:
-  // 1. Carrito CONTIENE a ItemCarrito (relación parte-todo)
-  // 2. Carrito AGREGA los ítems a su lista
-  // 3. Carrito tiene TODOS los datos necesarios para crearlo
   agregarCarrito(producto: Producto, cantidad: number): void {
     const item = new ItemCarrito(producto, cantidad);
     this.agregarItem(item);
