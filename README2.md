@@ -27,3 +27,11 @@ En `src/problem` se muestran dos problemas principales:
 - **Mejor cohesión:** `Order` concentra el comportamiento de su propio ciclo de pago (crear, pagar, reembolsar, comprobante).
 - **Menor acoplamiento en `Checkout`:** `Checkout` deja de conocer detalles de construcción de pagos y delega en `Order`.
 - **Evolución más simple:** agregar un nuevo método de pago o nueva capacidad (por ejemplo, comprobante físico) requiere menos cambios transversales y reduce riesgo de romper implementaciones existentes.
+
+## Diagramas de clases
+
+### `src/problem`
+![alt text](image-1.png)
+
+### `src/solution`
+![alt text](image.png)
