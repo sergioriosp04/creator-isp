@@ -23,8 +23,6 @@ class Carrito {
   }
 }
 
-// UsuarioController solo le dice al Carrito que agregue un producto,
-
 class UsuarioController {
   public agregarAlCarrito(
     carrito: Carrito,

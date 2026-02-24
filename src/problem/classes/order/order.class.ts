@@ -1,7 +1,5 @@
 import type { Payment } from '../../interfaces/payment.interface.js';
 
-// ❌ PROBLEMA CREATOR: Order NO crea el pago
-// El pago se le inyecta desde afuera, violando el Creator Pattern
 export class Order {
     private payment?: Payment;
     private amount: number;
@@ -10,12 +8,6 @@ export class Order {
         this.amount = amount;
     }
 
-    // ❌ Order recibe el pago desde afuera en lugar de crearlo
-    // Esto viola Creator Pattern porque Order:
-    // - CONTIENE el pago
-    // - Tiene toda la información necesaria (amount)
-    // - Es el dueño natural del pago
-    // Pero NO lo crea
     setPayment(payment: Payment): void {
         this.payment = payment;
     }
