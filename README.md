@@ -70,7 +70,7 @@ No siempre, si se utiliza el principio sin criterio podría generar complejidad 
 
 * ¿Factories pueden violar ISP?
 
-Si, ya que este es un principio busca que una sola factory cree todo, lo que va en direccion opuesta al principio ISP.
+Sí, si una factory expone una interfaz enorme o fuerza dependencias que el cliente no necesita. Una factory también debe ser pequeña y enfocada.
 
 * ¿Qué smells aparecen cuando se ignoran estos principios?
 
